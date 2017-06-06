@@ -1,6 +1,6 @@
 name:                n-tuple
 version:             0.0.0
-synopsis:            Tuples of arbitrary length.
+synopsis:            Homogeneous tuples of arbitrary length.
 -- description:
 homepage:            https://github.com/athanclark/n-tuple#readme
 license:             BSD3
