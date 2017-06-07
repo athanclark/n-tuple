@@ -4,6 +4,11 @@
   , KindSignatures
   , PolyKinds
   , TypeFamilies
+  , GeneralizedNewtypeDeriving
+  , DeriveGeneric
+  , DeriveDataTypeable
+  , DeriveFunctor
+  , DeriveTraversable
   #-}
 
 module Data.NTuple
@@ -34,10 +39,13 @@ import Data.List (intercalate)
 import Data.Singletons.Prelude
 import Data.Singletons.Prelude.Ord
 
+import Data.Data (Data, Typeable)
+import GHC.Generics (Generic)
+
 
 newtype NTuple (size :: Nat) a = NTuple
   { toVector :: Vector a
-  }
+  } deriving (Eq, Data, Typeable, Generic, Functor, Foldable, Traversable)
 
 
 instance Show a => Show (NTuple size a) where
