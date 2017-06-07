@@ -11,6 +11,7 @@ module Data.NTuple
   , empty
   , proj
   , incl
+  , toVector
   , -- * Proxies
     _1
   , _2
@@ -28,14 +29,14 @@ import Data.Vector (Vector, (!))
 import qualified Data.Vector as V
 
 import GHC.TypeLits
-import Data.Proxy (Proxy)
+import Data.Proxy (Proxy (..))
 import Data.List (intercalate)
 import Data.Singletons.Prelude
 import Data.Singletons.Prelude.Ord
 
 
 newtype NTuple (size :: Nat) a = NTuple
-  { getNTuple :: Vector a
+  { toVector :: Vector a
   }
 
 
@@ -47,22 +48,24 @@ empty :: NTuple 0 a
 empty = NTuple V.empty
 
 
+-- | Project an element out of the tuple
 proj :: ( n <= size
         , (n :> 0) ~ True
         , KnownNat n
         )
-      => Proxy n
+      => Proxy n -- ^ The index
       -> NTuple size a
       -> a
 proj p (NTuple xs) = xs V.! (fromInteger (natVal p) - 1)
 
 
+-- | Include an element to the tuple, overwriting on an existing index
 incl :: ( n <= (size + 1)
         , (n :> 0) ~ True
         , KnownNat n
         , size' ~ If (n :== (size + 1)) (size + 1) size
         )
-     => Proxy n
+     => Proxy n -- ^ The index
      -> a
      -> NTuple size a
      -> NTuple size' a
