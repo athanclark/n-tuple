@@ -30,14 +30,15 @@ module Data.NTuple
   , _10
   ) where
 
-import Data.Vector (Vector, (!))
+import Data.Vector (Vector)
 import qualified Data.Vector as V
 
 import GHC.TypeLits
 import Data.Proxy (Proxy (..))
 import Data.List (intercalate)
-import Data.Singletons.Prelude
-import Data.Singletons.Prelude.Ord
+import Data.Singletons.Prelude (If)
+import Data.Singletons.Prelude.Eq (PEq ((:==)))
+import Data.Singletons.Prelude.Ord (POrd ((:>)))
 
 import Data.Data (Data, Typeable)
 import GHC.Generics (Generic)
@@ -58,7 +59,7 @@ empty = NTuple V.empty
 
 -- | Project an element out of the tuple
 proj :: ( n <= size
-        , (n :> 0) ~ True
+        , (n :> 0) ~ 'True
         , KnownNat n
         )
       => Proxy n -- ^ The index
@@ -69,7 +70,7 @@ proj p (NTuple xs) = xs V.! (fromInteger (natVal p) - 1)
 
 -- | Include an element to the tuple, overwriting on an existing index
 incl :: ( n <= (size + 1)
-        , (n :> 0) ~ True
+        , (n :> 0) ~ 'True
         , KnownNat n
         , size' ~ If (n :== (size + 1)) (size + 1) size
         )
@@ -81,7 +82,7 @@ incl p x (NTuple xs) = NTuple $
   let n = fromInteger (natVal p) - 1
       (l,r) = V.splitAt n xs
 
-  in  l V.++ (x `V.cons` (tail' r))
+  in  l V.++ (x `V.cons` tail' r)
   where
     tail' r
       | V.null r  = V.empty
