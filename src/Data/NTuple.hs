@@ -36,9 +36,9 @@ import qualified Data.Vector as V
 import GHC.TypeLits
 import Data.Proxy (Proxy (..))
 import Data.List (intercalate)
-import Data.Singletons.Prelude (If)
-import Data.Singletons.Prelude.Eq (PEq ((:==)))
-import Data.Singletons.Prelude.Ord (POrd ((:>)))
+import Prelude.Singletons (If)
+import Data.Eq.Singletons (PEq ((==)))
+import Data.Ord.Singletons (POrd ((>)))
 
 import Data.Data (Data, Typeable)
 import GHC.Generics (Generic)
@@ -59,7 +59,7 @@ empty = NTuple V.empty
 
 -- | Project an element out of the tuple
 proj :: ( n <= size
-        , (n :> 0) ~ 'True
+        , (n > 0) ~ 'True
         , KnownNat n
         )
       => Proxy n -- ^ The index
@@ -70,9 +70,9 @@ proj p (NTuple xs) = xs V.! (fromInteger (natVal p) - 1)
 
 -- | Include an element to the tuple, overwriting on an existing index
 incl :: ( n <= (size + 1)
-        , (n :> 0) ~ 'True
+        , (n > 0) ~ 'True
         , KnownNat n
-        , size' ~ If (n :== (size + 1)) (size + 1) size
+        , size' ~ If (n == (size + 1)) (size + 1) size
         )
      => Proxy n -- ^ The index
      -> a

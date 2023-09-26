@@ -1,5 +1,5 @@
 name:                n-tuple
-version:             0.0.2.0
+version:             0.0.3
 github:              "athanclark/n-tuple"
 license:             BSD3
 author:              "Athan Clark"
@@ -9,21 +9,14 @@ copyright:           "BSD-3"
 extra-source-files:
 - README.md
 
-# Metadata used when publishing your package
-# synopsis:            Short description of your package
-# category:            Web
-
-# To avoid duplicated efforts in documentation and dealing with the
-# complications of embedding Haddock markup inside cabal files, it is
-# common to point users to the README.md file.
-description:         Please see the README on Github at <https://github.com/athanclark/sparrow-server#readme>
+description:         Please see the README on Github at <https://github.com/athanclark/n-tuple#readme>
 synopsis:            Homogeneous tuples of arbitrary length.
 ghc-options:
   - -Wall
 
 dependencies:
-- base == 4.10.*
-- singletons >= 2.3 && < 2.4
+- base >= 4.11 && < 5
+- singletons-base >= 3
 - vector
 
 library:

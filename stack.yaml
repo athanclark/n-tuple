@@ -18,7 +18,7 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver: lts-11.0
+resolver: lts-21.12
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -39,8 +39,9 @@ packages:
 # using the same syntax as the packages field.
 # (e.g., acme-missiles-0.3)
 extra-deps:
-  - singletons-2.3.1
-  - th-desugar-1.7
+  []
+  # - singletons-2.3.1
+  # - th-desugar-1.7
 
 # Override default flag values for local packages and extra-deps
 # flags: {}

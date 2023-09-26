@@ -1,5 +1,7 @@
 # n-tuple
 
+This is a silly implementation of "homogeneous n-length tuples" -- basically
+an array. Internally, it builds a `Vector`, and projections just pull that index.
 
 ```haskell
 {-# LANGUAGE DataKinds -#}
